@@ -1,0 +1,88 @@
+{
+  "before_counts": {
+    "sources": 6,
+    "items": 83,
+    "analysis": 6
+  },
+  "after_counts": {
+    "sources": 9,
+    "items": 92,
+    "analysis": 6
+  },
+  "existing_sources_unchanged": true,
+  "existing_items_unchanged": true,
+  "existing_analysis_unchanged": true,
+  "samples": [
+    {
+      "source": "OpenAI News",
+      "feed_url": "https://openai.com/news/rss.xml",
+      "count": 3,
+      "external_id": "rss:63b50ae0f1350d018e445b5f75909283d0ef9314d106069ebe0795d700bf260d",
+      "title": "Proaction boosts sales 60% and saves 75+ hours with Codex",
+      "url": "https://openai.com/index/proaction",
+      "published_at": "2026-09-25 19:00:00.000000",
+      "content_preview": "With Codex, GPT-Live-1, and GPT-6 Astra, Proaction builds, operates, and sells modern fleet management faster.",
+      "raw_json_present": true,
+      "raw_json_keys": [
+        "id",
+        "title",
+        "link",
+        "content",
+        "summary",
+        "author",
+        "published",
+        "updated"
+      ]
+    },
+    {
+      "source": "Google DeepMind Blog",
+      "feed_url": "https://deepmind.google/blog/rss.xml",
+      "count": 3,
+      "external_id": "rss:3cb022555b599beef3e587822d90f3edacb148e60939ef86bca5d9bf232be96e",
+      "title": "Introducing Gemini 3.8 Live with Live Avatar",
+      "url": "https://deepmind.google/blog/introducing-gemini-38-live-with-live-avatar/",
+      "published_at": "2026-09-24 16:20:39.000000",
+      "content_preview": "",
+      "raw_json_present": true,
+      "raw_json_keys": [
+        "id",
+        "title",
+        "link",
+        "content",
+        "summary",
+        "author",
+        "published",
+        "updated"
+      ]
+    },
+    {
+      "source": "Hugging Face Blog",
+      "feed_url": "https://huggingface.co/blog/feed.xml",
+      "count": 3,
+      "external_id": "rss:a25f3647e9ccc0efbdba02dc7d64116013c4dea34082f4f3294f24d56be7b0c9",
+      "title": "Holo4: powering generalist computer-use agents",
+      "url": "https://huggingface.co/blog/Hcompany/holo4",
+      "published_at": "2026-09-28 09:44:05.000000",
+      "content_preview": "",
+      "raw_json_present": true,
+      "raw_json_keys": [
+        "id",
+        "title",
+        "link",
+        "content",
+        "summary",
+        "author",
+        "published",
+        "updated"
+      ]
+    }
+  ],
+  "today_http": 200,
+  "today_stats": {
+    "raw_items": 92,
+    "analyzed": 6,
+    "relevant": 1,
+    "must_read": 2
+  },
+  "today_rss_cards": 0
+}

@@ -1,0 +1,75 @@
+{
+  "sources": {
+    "rows": 9,
+    "sha256": "35e546f4927906e5caede524c895ef5376a00ff9970b61474794ea35f01c84ec",
+    "matches_before": true
+  },
+  "items": {
+    "rows": 164,
+    "sha256": "0abc35744d7775f0f444fef1328c1480f92fa95ef80cd362d43865d390c08805",
+    "matches_before": true
+  },
+  "analysis": {
+    "rows": 16,
+    "sha256": "f5d4995bef2296419719c9d18a5639ec163a99ac407c752cb06fcff4d8e9a7be",
+    "matches_before": true
+  },
+  "feedback": {
+    "rows": 1,
+    "sha256": "61c5cab2e3611e9e148171c44c34e62b1826c4e5b2fcf2ded1a1a8b51b58554c",
+    "matches_before": true
+  },
+  "watchlist": {
+    "rows": 2,
+    "sha256": "f8e6700a314b56a4d636e99116d67c2499c0821cd7d9e6b055fedfaa2efe8d0b",
+    "matches_before": true
+  },
+  "market_watchlist": {
+    "rows": 1,
+    "sha256": "2c73df52eff5f388edc44e79874fae99ea0b81a71259a3e2db0d46e9a61bdc3b",
+    "matches_before": true
+  },
+  "market_snapshots": {
+    "rows": 30,
+    "sha256": "809fb1209d720651a1da12119296be6a738db9ae676388072048b06e478ab374",
+    "matches_before": true
+  },
+  "market_announcements": {
+    "rows": 10,
+    "sha256": "dd8b4d9f3b2c3ec9be30eec79b6977fabe77c6e665ba7a5bf6e473d1c6ef64bd",
+    "matches_before": true
+  },
+  "market_announcement_documents": {
+    "rows": 3,
+    "sha256": "b4906720095559387cbbc04c8f074a6de9b95a7ce2acec09911f09b7837639aa",
+    "matches_before": true
+  },
+  "market_announcement_reads": [
+    {
+      "id": 1,
+      "announcement_id": 1,
+      "read_at": "2026-09-28 16:11:43.203849"
+    }
+  ],
+  "foreign_keys": [
+    [
+      0,
+      0,
+      "market_announcements",
+      "announcement_id",
+      "id",
+      "NO ACTION",
+      "NO ACTION",
+      "NONE"
+    ]
+  ],
+  "unique_indexes": [
+    "sqlite_autoindex_market_announcement_reads_1"
+  ],
+  "final_api": {
+    "unread_announcement_count": 9,
+    "first_id": 1,
+    "first_is_read": true,
+    "other_visible_unread": true
+  }
+}

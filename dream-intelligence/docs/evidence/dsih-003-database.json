@@ -1,0 +1,74 @@
+{
+  "counts": {
+    "sources": 1,
+    "items": 1,
+    "analysis": 1
+  },
+  "sources": [
+    [
+      "Mock Source",
+      "mock"
+    ]
+  ],
+  "real_items": 0,
+  "foreign_key_check": [],
+  "metadata_columns": [
+    [
+      6,
+      "author",
+      "VARCHAR",
+      0,
+      null,
+      0
+    ],
+    [
+      7,
+      "published_at",
+      "DATETIME",
+      0,
+      null,
+      0
+    ]
+  ],
+  "backups": [
+    "..\\data\\dsih.db.pre-dsih-003-20260928T085642613538.bak"
+  ],
+  "health": {
+    "status": 200,
+    "body": {
+      "status": "ok"
+    }
+  },
+  "today": {
+    "status": 200,
+    "body": {
+      "stats": {
+        "discovered": 1,
+        "important": 1,
+        "relevant": 1,
+        "must_read": 1
+      },
+      "items": [
+        {
+          "id": 1,
+          "title": "MiniMax releases new video capability",
+          "url": "https://example.com/mock/minimax",
+          "category": "AI_VIDEO",
+          "summary": "MiniMax released a new video capability. This is mock data, not a verified release.",
+          "why_it_matters": "It may improve Dream Stream Video Studio. This is a mock assessment.",
+          "priority": 91,
+          "dreamstream_relevance": 96,
+          "source": "Mock Source",
+          "source_type": "mock",
+          "published_at": "2026-09-28T08:35:36.177711",
+          "tags": [
+            "MiniMax",
+            "Video"
+          ],
+          "recommended_action": "READ",
+          "analyzer_version": "mock-v1"
+        }
+      ]
+    }
+  }
+}

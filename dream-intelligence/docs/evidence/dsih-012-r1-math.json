@@ -1,0 +1,84 @@
+{
+  "date_range": [
+    "2026-08-17",
+    "2026-09-28"
+  ],
+  "snapshot_count": 30,
+  "distinct_dates": 30,
+  "latest_date": "2026-09-28",
+  "latest_close": "14.14",
+  "previous_close": "14.96",
+  "expected": {
+    "change_pct": "-5.4813",
+    "ma5": "15.0900",
+    "ma10": "15.0360",
+    "ma20": "15.2135",
+    "close_vs_ma5_pct": "-6.2956",
+    "close_vs_ma10_pct": "-5.9590",
+    "close_vs_ma20_pct": "-7.0562",
+    "high_20d": "16.09",
+    "low_20d": "13.95",
+    "range_position_20d": "8.8785",
+    "avg_volume_5d": "7640320.0000",
+    "volume_ratio_5d": "1.2587",
+    "sample_days": "30"
+  },
+  "api": {
+    "change_pct": -5.4813,
+    "ma5": 15.09,
+    "ma10": 15.036,
+    "ma20": 15.2135,
+    "close_vs_ma5_pct": -6.2956,
+    "close_vs_ma10_pct": -5.959,
+    "close_vs_ma20_pct": -7.0562,
+    "high_20d": 16.09,
+    "low_20d": 13.95,
+    "range_position_20d": 8.8785,
+    "avg_volume_5d": 7640320.0,
+    "volume_ratio_5d": 1.2587,
+    "sample_days": 30
+  },
+  "matches": {
+    "change_pct": true,
+    "ma5": true,
+    "ma10": true,
+    "ma20": true,
+    "close_vs_ma5_pct": true,
+    "close_vs_ma10_pct": true,
+    "close_vs_ma20_pct": true,
+    "high_20d": true,
+    "low_20d": true,
+    "range_position_20d": true,
+    "avg_volume_5d": true,
+    "volume_ratio_5d": true,
+    "sample_days": true
+  },
+  "api_status": 200,
+  "boundary": {
+    "sources": {
+      "count": 9,
+      "unchanged": true
+    },
+    "items": {
+      "count": 164,
+      "unchanged": true
+    },
+    "analysis": {
+      "count": 16,
+      "unchanged": true
+    },
+    "feedback": {
+      "count": 1,
+      "unchanged": true
+    },
+    "watchlist": {
+      "count": 2,
+      "unchanged": true
+    },
+    "market_watchlist": {
+      "count": 1,
+      "unchanged": true
+    },
+    "original_snapshot_unchanged": true
+  }
+}

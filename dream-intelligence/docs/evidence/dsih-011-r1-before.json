@@ -1,0 +1,32 @@
+{
+  "sources": {
+    "rows": 9,
+    "sha256": "35e546f4927906e5caede524c895ef5376a00ff9970b61474794ea35f01c84ec"
+  },
+  "items": {
+    "rows": 164,
+    "sha256": "0abc35744d7775f0f444fef1328c1480f92fa95ef80cd362d43865d390c08805"
+  },
+  "analysis": {
+    "rows": 16,
+    "sha256": "f5d4995bef2296419719c9d18a5639ec163a99ac407c752cb06fcff4d8e9a7be"
+  },
+  "feedback": {
+    "rows": 1,
+    "sha256": "61c5cab2e3611e9e148171c44c34e62b1826c4e5b2fcf2ded1a1a8b51b58554c"
+  },
+  "watchlist": {
+    "rows": 2,
+    "sha256": "f8e6700a314b56a4d636e99116d67c2499c0821cd7d9e6b055fedfaa2efe8d0b"
+  },
+  "watchlist_values": [
+    {
+      "type": "project",
+      "value": "ComfyUI"
+    },
+    {
+      "type": "project",
+      "value": "browser-use"
+    }
+  ]
+}

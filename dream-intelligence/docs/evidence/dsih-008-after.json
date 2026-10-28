@@ -1,0 +1,30 @@
+{
+  "before_counts": {
+    "sources": 9,
+    "items": 92,
+    "analysis": 9
+  },
+  "after_counts": {
+    "sources": 9,
+    "items": 138,
+    "analysis": 9
+  },
+  "old_sources_unchanged": true,
+  "old_items_unchanged": true,
+  "old_analysis_unchanged": true,
+  "new_items": 46,
+  "new_items_by_source": {
+    "Weibo": 28,
+    "Zhihu": 6,
+    "Bilibili Hot Search": 12
+  },
+  "today_http": 200,
+  "today_stats": {
+    "raw_items": 138,
+    "analyzed": 9,
+    "relevant": 3,
+    "must_read": 2
+  },
+  "today_cards": 9,
+  "new_raw_in_today": false
+}

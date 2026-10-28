@@ -1,0 +1,88 @@
+{
+  "watchlist": [
+    "ComfyUI",
+    "Orion"
+  ],
+  "input_ids": {
+    "Routine report": 1,
+    "ComfyUI release": 2,
+    "Orion release": 3,
+    "Orion update": 4,
+    "Orion third": 5
+  },
+  "candidate_count": 4,
+  "candidates": [
+    {
+      "item_id": 2,
+      "source": "GITHUB",
+      "source_type": "github",
+      "title": "ComfyUI release",
+      "effective_time": "2026-09-27T12:00:00+00:00",
+      "tier": 1,
+      "gate_matches": [],
+      "watchlist_matches": [
+        "ComfyUI"
+      ],
+      "watchlist_hit": true,
+      "selection_reason": "WATCHLIST_MATCH: ComfyUI | GITHUB_RECENT",
+      "watchlist_match_count": 1
+    },
+    {
+      "item_id": 3,
+      "source": "NEWSNOW",
+      "source_type": "newsnow",
+      "title": "Orion release",
+      "effective_time": "2026-09-26T12:00:00+00:00",
+      "tier": 3,
+      "gate_matches": [],
+      "watchlist_matches": [
+        "Orion"
+      ],
+      "watchlist_hit": true,
+      "selection_reason": "WATCHLIST_MATCH: Orion",
+      "watchlist_match_count": 1
+    },
+    {
+      "item_id": 4,
+      "source": "NEWSNOW",
+      "source_type": "newsnow",
+      "title": "Orion update",
+      "effective_time": "2026-09-25T12:00:00+00:00",
+      "tier": 3,
+      "gate_matches": [],
+      "watchlist_matches": [
+        "Orion"
+      ],
+      "watchlist_hit": true,
+      "selection_reason": "WATCHLIST_MATCH: Orion",
+      "watchlist_match_count": 1
+    },
+    {
+      "item_id": 1,
+      "source": "RSS",
+      "source_type": "rss",
+      "title": "Routine report",
+      "effective_time": "2026-09-28T12:00:00+00:00",
+      "tier": 2,
+      "gate_matches": [],
+      "watchlist_matches": [],
+      "watchlist_hit": false,
+      "selection_reason": "RSS_RECENT",
+      "watchlist_match_count": 0
+    }
+  ],
+  "excluded": {
+    "already_analyzed": 0,
+    "too_old": 0,
+    "newsnow_no_gate_match": 0,
+    "selected": 4
+  },
+  "selected_order": [
+    2,
+    3,
+    4,
+    1
+  ],
+  "newsnow_selected": 2,
+  "newsnow_third_excluded_by_quota": true
+}

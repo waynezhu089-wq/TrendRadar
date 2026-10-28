@@ -1,0 +1,16 @@
+{
+  "db_hash": "3d9a2e40206b957f4dc89a05267104489dbd95b6a4a77d521af32c42e9e4ff05",
+  "frozen": {
+    "backend\\app\\intelligence\\analyzer.py": "93f0b29c99530c1ac044cca3e1fad675ef40944980cf5a9ba573b06ebe65bde8",
+    "backend\\app\\intelligence\\priority.py": "e6efb45715eba8e91bb60e184771936bdf41ec7d479c3dff5808b945a5c8af70",
+    "backend\\app\\intelligence\\prompts.py": "41236fc312907a8886c0fa2feb1a050ef0396679c8a0b4635312427c951ed70d",
+    "backend\\app\\intelligence\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "backend\\app\\llm\\base.py": "3413a526f4b927a9abc5f4926f2a672f566ccec44db585757e8d77d076ba5118",
+    "backend\\app\\llm\\openai_compatible.py": "88713b0cb6aae44e3680cb5e861c068d89a14a97eea53677cd18e0132ef75108",
+    "backend\\app\\llm\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "backend\\app\\connectors\\base.py": "b23dfa685dbf5b61d030ee58e1552087e8211230eb3a3ac3a94d95321ef68565",
+    "backend\\app\\connectors\\newsnow.py": "917672671d72b7c58c12254d4b8f992204f9a44bdb8eabffe76bc0cc9c74b82a",
+    "backend\\app\\connectors\\__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "config\\intelligence_profile.md": "5f2eafc8a154534a2ed1215dfa6baffab04f4edddfe6272c2991b0f9ddba5af3"
+  }
+}

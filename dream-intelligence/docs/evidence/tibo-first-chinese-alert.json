@@ -1,0 +1,63 @@
+{
+  "msg_type": "interactive",
+  "card": {
+    "config": {
+      "wide_screen_mode": true
+    },
+    "header": {
+      "template": "blue",
+      "title": {
+        "tag": "plain_text",
+        "content": "Dream Intelligence｜Codex 额度重置 · 重置预告"
+      }
+    },
+    "elements": [
+      {
+        "tag": "div",
+        "text": {
+          "tag": "plain_text",
+          "content": "Tibo @thsottiaux\n发布时间：2026-10-23 12:46 北京时间\n\n第18天/ Decisions API 已正式发布（GA），OpenResponses 加入了 Linux 基金会，我们发布了一些性能改进，Uber 正全面投入 codex 与 work。但没错……那是一次重置！"
+        }
+      },
+      {
+        "tag": "div",
+        "text": {
+          "tag": "plain_text",
+          "content": "判断：帖文提到 Decisions API GA、OpenResponses 加入 Linux 基金会、性能改进及 Uber 采用 codex/work，并以“that’s a reset!”作出重置表态；这只能视为预告/挑战奖励表述，未证明额度重置已执行，故归为 预告，而非 明确完成。\n来源：X 专用会话读取"
+        }
+      },
+      {
+        "tag": "action",
+        "actions": [
+          {
+            "tag": "button",
+            "text": {
+              "tag": "plain_text",
+              "content": "查看 X 原帖"
+            },
+            "url": "https://x.com/thsottiaux/status/2113492187770175603",
+            "type": "primary"
+          },
+          {
+            "tag": "button",
+            "text": {
+              "tag": "plain_text",
+              "content": "数据来源"
+            },
+            "url": "https://x.com/thsottiaux",
+            "type": "default"
+          }
+        ]
+      },
+      {
+        "tag": "note",
+        "elements": [
+          {
+            "tag": "plain_text",
+            "content": "本提醒转述公开消息；预告不等于已经执行，具体额度请查看个人账号。"
+          }
+        ]
+      }
+    ]
+  }
+}

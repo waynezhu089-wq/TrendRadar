@@ -1,0 +1,39 @@
+{
+  "started": true,
+  "jobs": {
+    "newsnow": {
+      "name": "NewsNow",
+      "interval_minutes": 60,
+      "start_date": "2026-09-28T13:14:07.878036+00:00",
+      "next_run_time": "2026-09-28T13:14:07.878036+00:00",
+      "max_instances": 1,
+      "coalesce": true
+    },
+    "github": {
+      "name": "GitHub",
+      "interval_minutes": 120,
+      "start_date": "2026-09-28T14:14:07.878036+00:00",
+      "next_run_time": "2026-09-28T14:14:07.878036+00:00",
+      "max_instances": 1,
+      "coalesce": true
+    },
+    "rss": {
+      "name": "RSS",
+      "interval_minutes": 240,
+      "start_date": "2026-09-28T16:14:07.878036+00:00",
+      "next_run_time": "2026-09-28T16:14:07.878036+00:00",
+      "max_instances": 1,
+      "coalesce": true
+    },
+    "auto_analysis": {
+      "name": "Auto Analysis",
+      "interval_minutes": 240,
+      "start_date": "2026-09-28T16:26:07.878036+00:00",
+      "next_run_time": "2026-09-28T16:26:07.878036+00:00",
+      "max_instances": 1,
+      "coalesce": true
+    }
+  },
+  "offset_minutes": 12,
+  "stopped_cleanly": true
+}

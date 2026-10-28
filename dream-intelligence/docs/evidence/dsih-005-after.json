@@ -1,0 +1,108 @@
+{
+  "http": 200,
+  "response": {
+    "stats": {
+      "raw_items": 81,
+      "analyzed": 4,
+      "relevant": 0,
+      "must_read": 1
+    },
+    "items": [
+      {
+        "id": 1,
+        "title": "MiniMax releases new video capability",
+        "url": "https://example.com/mock/minimax",
+        "category": "AI_VIDEO",
+        "summary": "MiniMax released a new video capability. This is mock data, not a verified release.",
+        "why_it_matters": "It may improve Dream Stream Video Studio. This is a mock assessment.",
+        "priority": 91,
+        "dreamstream_relevance": 96,
+        "source": "Mock Source",
+        "source_type": "mock",
+        "published_at": "2026-09-28T08:35:36.177711",
+        "tags": [
+          "MiniMax",
+          "Video"
+        ],
+        "recommended_action": "READ",
+        "analyzer_version": "mock-v1",
+        "today_bucket": "MUST_READ"
+      },
+      {
+        "id": 42,
+        "title": "我国南疆塔克拉玛干沙漠发现两处大型地下水水源，这意味着什么？将对当地生态和经济带来哪些影响？",
+        "url": "https://www.zhihu.com/question/2083110699207808761",
+        "category": "OTHER",
+        "summary": "知乎上的一个提问，声称南疆塔克拉玛干沙漠发现两处大型地下水水源，并询问其对当地生态与经济的影响。目前仅有标题、无正文内容、无来源、无发布时间与作者信息。",
+        "why_it_matters": "该话题属于地理/资源与区域发展议题，与 DSIH / Dream Stream 的 AI 视频生成、工作流与智能体方向没有直接关联；且仅凭一个提问标题无法核实所谓『大型地下水水源』的真实性与规模。",
+        "priority": 11,
+        "dreamstream_relevance": 3,
+        "source": "Zhihu",
+        "source_type": "newsnow",
+        "published_at": null,
+        "tags": [
+          "中国",
+          "新疆",
+          "水资源",
+          "知乎提问",
+          "未核实"
+        ],
+        "recommended_action": "IGNORE",
+        "analyzer_version": "dsih-analyzer-v0.1",
+        "today_bucket": "OTHER"
+      },
+      {
+        "id": 79,
+        "title": "星铁真珠角色PV",
+        "url": "https://search.bilibili.com/all?keyword=%E6%98%9F%E9%93%81%E7%9C%9F%E7%8F%A0%E8%A7%92%E8%89%B2PV",
+        "category": "OTHER",
+        "summary": "该条目仅为 B 站搜索页链接，关键词为“星铁真珠角色PV”，没有任何正文、作者或发布时间信息，无法确认具体视频内容。",
+        "why_it_matters": "这是《崩坏：星穹铁道》角色 PV 的搜索入口，属于游戏/二次元宣传内容，与 AI 视频生成技术或 Dream Stream 工作流无直接关联。",
+        "priority": 7,
+        "dreamstream_relevance": 5,
+        "source": "Bilibili Hot Search",
+        "source_type": "newsnow",
+        "published_at": null,
+        "tags": [
+          "Bilibili",
+          "游戏PV",
+          "星穹铁道",
+          "无正文"
+        ],
+        "recommended_action": "IGNORE",
+        "analyzer_version": "dsih-analyzer-v0.1",
+        "today_bucket": "OTHER"
+      },
+      {
+        "id": 2,
+        "title": "中国队亚运王者夺金",
+        "url": "https://s.weibo.com/weibo?q=%23%E4%B8%AD%E5%9B%BD%E9%98%9F%E4%BA%9A%E8%BF%90%E7%8E%8B%E8%80%85%E5%A4%BA%E9%87%91%23&t=31&band_rank=1&Refer=top",
+        "category": "OTHER",
+        "summary": "仅有微博热搜标题，内容为空，指向中国队在亚运会王者荣耀项目夺金，无法核实具体细节。",
+        "why_it_matters": "属于体育/电竞热点，与 DSIH / Dream Stream 关注的 AI 视频生成、ComfyUI、Agent/Skill/MCP 等方向无直接关系。",
+        "priority": 4,
+        "dreamstream_relevance": 0,
+        "source": "Weibo",
+        "source_type": "newsnow",
+        "published_at": null,
+        "tags": [
+          "微博热搜",
+          "亚运",
+          "电竞",
+          "王者荣耀",
+          "仅有标题"
+        ],
+        "recommended_action": "IGNORE",
+        "analyzer_version": "dsih-analyzer-v0.1",
+        "today_bucket": "OTHER"
+      }
+    ]
+  },
+  "counts": {
+    "sources": 4,
+    "items": 81,
+    "analysis": 4
+  },
+  "db_unchanged": true,
+  "frozen_unchanged": true
+}

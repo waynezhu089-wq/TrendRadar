@@ -1,0 +1,15 @@
+{
+  "invalid_enum_status": 422,
+  "nonexistent_item_status": 404,
+  "today_http": 200,
+  "item_id": 82,
+  "feedback": "watch",
+  "priority": 85,
+  "bucket": "MUST_READ",
+  "stats": {
+    "raw_items": 164,
+    "analyzed": 16,
+    "relevant": 4,
+    "must_read": 2
+  }
+}

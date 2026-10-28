@@ -1,0 +1,97 @@
+{
+  "audit": {
+    "source": {
+      "id": 1,
+      "name": "Mock Source",
+      "type": "mock",
+      "url": "https://example.com/mock",
+      "category": "AI_VIDEO"
+    },
+    "item": {
+      "id": 1,
+      "source_id": 1,
+      "title": "MiniMax releases new video capability",
+      "external_id": "day1-mock-minimax",
+      "url": "https://example.com/mock/minimax"
+    },
+    "analysis": {
+      "id": 1,
+      "item_id": 1,
+      "analyzer_version": "mock-v1"
+    }
+  },
+  "before_counts": {
+    "sources": 7,
+    "items": 84,
+    "analysis": 7
+  },
+  "real_hashes_before": {
+    "sources": "f4c7127ec6b5ae38c20af07bc639f0843aa1589296b7ac01116898c1a7bd8592",
+    "items": "4756a296be9f4e27a7abdafad8d6eaa04696c9806dd258271f7c0e182d420e51",
+    "analysis": "64dd6fa545603ed558c3919e039e86e58b7e093f100b53944665f048518d5886"
+  },
+  "backup": "data\\dsih.db.pre-dsih-006-r3-20260928T110115Z.bak",
+  "after_counts": {
+    "sources": 6,
+    "items": 83,
+    "analysis": 6
+  },
+  "real_hashes_after": {
+    "sources": "f4c7127ec6b5ae38c20af07bc639f0843aa1589296b7ac01116898c1a7bd8592",
+    "items": "4756a296be9f4e27a7abdafad8d6eaa04696c9806dd258271f7c0e182d420e51",
+    "analysis": "64dd6fa545603ed558c3919e039e86e58b7e093f100b53944665f048518d5886"
+  },
+  "real_rows_unchanged": true,
+  "today_http": 200,
+  "today_stats": {
+    "raw_items": 83,
+    "analyzed": 6,
+    "relevant": 1,
+    "must_read": 2
+  },
+  "today_items": [
+    {
+      "id": 82,
+      "source": "ComfyUI",
+      "source_type": "github",
+      "bucket": "MUST_READ"
+    },
+    {
+      "id": 83,
+      "source": "browser-use",
+      "source_type": "github",
+      "bucket": "MUST_READ"
+    },
+    {
+      "id": 84,
+      "source": "Crawl4AI",
+      "source_type": "github",
+      "bucket": "RELEVANT"
+    },
+    {
+      "id": 42,
+      "source": "Zhihu",
+      "source_type": "newsnow",
+      "bucket": "OTHER"
+    },
+    {
+      "id": 79,
+      "source": "Bilibili Hot Search",
+      "source_type": "newsnow",
+      "bucket": "OTHER"
+    },
+    {
+      "id": 2,
+      "source": "Weibo",
+      "source_type": "newsnow",
+      "bucket": "OTHER"
+    }
+  ],
+  "mock_present": false,
+  "regression": {
+    "backend_tests": 40,
+    "backend_failed": 0,
+    "typescript": "PASS",
+    "frontend_build": "PASS"
+  }
+}

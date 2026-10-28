@@ -1,0 +1,93 @@
+{
+  "sources": {
+    "before_rows": 9,
+    "after_rows": 9,
+    "hash_unchanged": true
+  },
+  "items": {
+    "before_rows": 164,
+    "after_rows": 164,
+    "hash_unchanged": true
+  },
+  "analysis": {
+    "before_rows": 16,
+    "after_rows": 16,
+    "hash_unchanged": true
+  },
+  "feedback": {
+    "before_rows": 1,
+    "after_rows": 1,
+    "hash_unchanged": true
+  },
+  "watchlist": {
+    "before_rows": 2,
+    "after_rows": 2,
+    "hash_unchanged": true
+  },
+  "market_watchlist": {
+    "before_rows": 1,
+    "after_rows": 1,
+    "hash_unchanged": true
+  },
+  "market_snapshots": {
+    "before_rows": 30,
+    "after_rows": 30,
+    "hash_unchanged": true
+  },
+  "market_announcements": {
+    "before_rows": 10,
+    "after_rows": 10,
+    "hash_unchanged": true
+  },
+  "market_announcement_documents": {
+    "before_rows": 3,
+    "after_rows": 6,
+    "hash_unchanged": false
+  },
+  "market_announcement_reads": {
+    "before_rows": 1,
+    "after_rows": 1,
+    "hash_unchanged": true
+  },
+  "old_documents_unchanged": true,
+  "documents_processed": [
+    {
+      "announcement_id": 4,
+      "status": "READABLE",
+      "char_count": 26297,
+      "error_code": null
+    },
+    {
+      "announcement_id": 5,
+      "status": "SKIPPED_COMPLEX",
+      "char_count": 0,
+      "error_code": "TOO_MANY_PAGES"
+    },
+    {
+      "announcement_id": 6,
+      "status": "SKIPPED_COMPLEX",
+      "char_count": 0,
+      "error_code": "TOO_MANY_PAGES"
+    }
+  ],
+  "read_rows": [
+    {
+      "announcement_id": 1,
+      "read_at": "2026-09-28 16:11:43.203849"
+    }
+  ],
+  "api": {
+    "status": 200,
+    "unread_count": 9,
+    "first_read": true,
+    "read_statuses": [
+      "READABLE",
+      "READABLE",
+      "READABLE",
+      "READABLE",
+      "SKIPPED_COMPLEX"
+    ],
+    "official_links": true,
+    "technical_sample_days": 30
+  }
+}

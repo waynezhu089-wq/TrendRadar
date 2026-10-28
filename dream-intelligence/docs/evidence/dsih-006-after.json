@@ -1,0 +1,47 @@
+{
+  "counts": {
+    "sources": 7,
+    "items": 84,
+    "analysis": 4
+  },
+  "samples": [
+    {
+      "id": 82,
+      "name": "ComfyUI",
+      "title": "Comfy-Org/ComfyUI — v0.37.0",
+      "url": "https://github.com/Comfy-Org/ComfyUI/releases/tag/v0.37.0",
+      "external_id": "github:comfy-org/comfyui:release:392485194",
+      "author": "github-actions[bot]",
+      "published_at": "2026-09-21 07:35:01.000000",
+      "content_length": 3074
+    },
+    {
+      "id": 83,
+      "name": "browser-use",
+      "title": "browser-use/browser-use — 0.13.10",
+      "url": "https://github.com/browser-use/browser-use/releases/tag/0.13.10",
+      "external_id": "github:browser-use/browser-use:release:382459855",
+      "author": "MagMueller",
+      "published_at": "2026-09-04 03:28:53.000000",
+      "content_length": 676
+    },
+    {
+      "id": 84,
+      "name": "Crawl4AI",
+      "title": "unclecode/crawl4ai — Release v0.9.4",
+      "url": "https://github.com/unclecode/crawl4ai/releases/tag/v0.9.4",
+      "external_id": "github:unclecode/crawl4ai:release:394626896",
+      "author": "github-actions[bot]",
+      "published_at": "2026-09-23 12:14:55.000000",
+      "content_length": 520
+    }
+  ],
+  "github_analysis": 0,
+  "existing_code_unchanged": true,
+  "today_stats": {
+    "raw_items": 84,
+    "analyzed": 4,
+    "relevant": 0,
+    "must_read": 1
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "get_http": 200,
+  "get_count": 2,
+  "entries": [
+    {
+      "id": 1,
+      "type": "project",
+      "value": "ComfyUI"
+    },
+    {
+      "id": 2,
+      "type": "project",
+      "value": "browser-use"
+    }
+  ],
+  "invalid_type_status": 422,
+  "empty_value_status": 422,
+  "nonexistent_delete_status": 404,
+  "today_http": 200,
+  "today_stats": {
+    "raw_items": 164,
+    "analyzed": 16,
+    "relevant": 4,
+    "must_read": 2
+  },
+  "feedback_watch_item82": "watch"
+}

@@ -1,0 +1,129 @@
+{
+  "captured_at": "2026-09-29T03:01:33.5606387+08:00",
+  "scheduler_pid": [
+    21216
+  ],
+  "job_count": 7,
+  "jobs": [
+    {
+      "id": "newsnow",
+      "name": "NewsNow",
+      "trigger": "interval[1:00:00]",
+      "timezone": "UTC",
+      "fields": {},
+      "interval_minutes": 60,
+      "start_date": "2026-09-29T04:01:33.451572+08:00",
+      "max_instances": 1,
+      "coalesce": true
+    },
+    {
+      "id": "github",
+      "name": "GitHub",
+      "trigger": "interval[2:00:00]",
+      "timezone": "UTC",
+      "fields": {},
+      "interval_minutes": 120,
+      "start_date": "2026-09-29T05:01:33.451572+08:00",
+      "max_instances": 1,
+      "coalesce": true
+    },
+    {
+      "id": "rss",
+      "name": "RSS",
+      "trigger": "interval[4:00:00]",
+      "timezone": "UTC",
+      "fields": {},
+      "interval_minutes": 240,
+      "start_date": "2026-09-29T07:01:33.451572+08:00",
+      "max_instances": 1,
+      "coalesce": true
+    },
+    {
+      "id": "auto_analysis",
+      "name": "Auto Analysis",
+      "trigger": "interval[4:00:00]",
+      "timezone": "UTC",
+      "fields": {},
+      "interval_minutes": 240,
+      "start_date": "2026-09-29T07:13:33.451572+08:00",
+      "max_instances": 1,
+      "coalesce": true
+    },
+    {
+      "id": "market",
+      "name": "Market Collector",
+      "trigger": "cron[day_of_week='mon-fri', hour='16', minute='10']",
+      "timezone": "Asia/Shanghai",
+      "fields": {
+        "year": "*",
+        "month": "*",
+        "day": "*",
+        "week": "*",
+        "day_of_week": "mon-fri",
+        "hour": "16",
+        "minute": "10",
+        "second": "0"
+      },
+      "interval_minutes": null,
+      "start_date": null,
+      "max_instances": 1,
+      "coalesce": true
+    },
+    {
+      "id": "market_announcements",
+      "name": "Market Announcements",
+      "trigger": "cron[day_of_week='mon-fri', hour='18,22', minute='30']",
+      "timezone": "Asia/Shanghai",
+      "fields": {
+        "year": "*",
+        "month": "*",
+        "day": "*",
+        "week": "*",
+        "day_of_week": "mon-fri",
+        "hour": "18,22",
+        "minute": "30",
+        "second": "0"
+      },
+      "interval_minutes": null,
+      "start_date": null,
+      "max_instances": 1,
+      "coalesce": true
+    },
+    {
+      "id": "feishu_daily_brief",
+      "name": "Feishu Daily Brief",
+      "trigger": "cron[hour='8', minute='30']",
+      "timezone": "Asia/Shanghai",
+      "fields": {
+        "year": "*",
+        "month": "*",
+        "day": "*",
+        "week": "*",
+        "day_of_week": "*",
+        "hour": "8",
+        "minute": "30",
+        "second": "0"
+      },
+      "interval_minutes": null,
+      "start_date": null,
+      "max_instances": 1,
+      "coalesce": true
+    }
+  ],
+  "analysis_offset_minutes": 12,
+  "database_counts": {
+    "analysis": 16,
+    "feedback": 1,
+    "items": 164,
+    "market_announcement_documents": 6,
+    "market_announcement_reads": 1,
+    "market_announcements": 10,
+    "market_snapshots": 30,
+    "market_watchlist": 1,
+    "notification_deliveries": 1,
+    "sources": 9,
+    "watchlist": 2
+  },
+  "notification_deliveries": 1,
+  "log_bytes": 890
+}

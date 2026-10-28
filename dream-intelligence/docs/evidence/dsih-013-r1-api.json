@@ -1,0 +1,41 @@
+{
+  "market_status": 200,
+  "announcement_statuses": [
+    {
+      "id": 1,
+      "read_status": "READABLE",
+      "text_available": true,
+      "contains_full_text": false
+    },
+    {
+      "id": 2,
+      "read_status": "READABLE",
+      "text_available": true,
+      "contains_full_text": false
+    },
+    {
+      "id": 3,
+      "read_status": "READABLE",
+      "text_available": true,
+      "contains_full_text": false
+    },
+    {
+      "id": 4,
+      "read_status": null,
+      "text_available": false,
+      "contains_full_text": false
+    },
+    {
+      "id": 5,
+      "read_status": null,
+      "text_available": false,
+      "contains_full_text": false
+    }
+  ],
+  "text_status": 200,
+  "text_length": 498,
+  "unavailable_status": 409,
+  "unavailable_detail": "text unavailable; use official URL",
+  "unknown_status": 404,
+  "health_status": 200
+}

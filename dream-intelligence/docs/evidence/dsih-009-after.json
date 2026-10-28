@@ -1,0 +1,102 @@
+{
+  "before_counts": {
+    "sources": 9,
+    "items": 138,
+    "analysis": 9
+  },
+  "after_counts": {
+    "sources": 9,
+    "items": 138,
+    "analysis": 13
+  },
+  "sources_unchanged": true,
+  "raw_unchanged": true,
+  "old_analysis_unchanged": true,
+  "new_analysis": [
+    {
+      "id": 11,
+      "item_id": 92,
+      "category": "AI",
+      "summary": "Hugging Face 博客标题为“Accelerating vision-language models with LFM2.5-VL-DSpark”，发布时间为 2026-09-24；正文内容为空，作者未知。仅能确认该条目指向视觉语言模型加速主题。",
+      "why_it_matters": "条目事实：这是关于视觉语言模型加速的 Hugging Face 博客标题。项目相关性判断：DSIH / Dream Stream 若涉及多模态 Agent、本地 LLM 或工作流推理加速，这类优化可能提供参考；但目前没有正文，无法确认是否与 AI 视频生成、ComfyUI、MiniMax、Seedance、Kling、Wan、Veo 或角色一致性直接相关，也不能说明项目已采用或依赖该技术。",
+      "importance": 40,
+      "novelty": 45,
+      "credibility": 55,
+      "personal_relevance": 45,
+      "dreamstream_relevance": 40,
+      "actionability": 25,
+      "priority": 42,
+      "tags": "[\"vision-language-models\", \"model-optimization\", \"Hugging Face\", \"LiquidAI\", \"\\u591a\\u6a21\\u6001\"]",
+      "recommended_action": "WATCH",
+      "analyzer_version": "dsih-analyzer-v0.1.1",
+      "analyzed_at": "2026-09-28 12:01:44.418128"
+    },
+    {
+      "id": 12,
+      "item_id": 93,
+      "category": "AI",
+      "summary": "标题称该 Hugging Face 博客介绍如何使用 NVIDIA Warp 和 MjWarp 加速机器人仿真与学习工作流；作者和正文内容未提供。",
+      "why_it_matters": "条目仅涉及 NVIDIA 机器人仿真与学习工具链，若 DSIH/Dream Stream 未来关注物理仿真、动作控制或训练工作流，可能具有参考价值；但当前仅有标题，未显示与 AI 视频生成、ComfyUI、MiniMax、角色一致性或 Agent/MCP 等核心方向直接相关，也未表明项目已采用或依赖该工具。",
+      "importance": 40,
+      "novelty": 35,
+      "credibility": 55,
+      "personal_relevance": 20,
+      "dreamstream_relevance": 15,
+      "actionability": 15,
+      "priority": 29,
+      "tags": "[\"NVIDIA Warp\", \"MjWarp\", \"\\u673a\\u5668\\u4eba\\u4eff\\u771f\", \"\\u5b66\\u4e60\\u5de5\\u4f5c\\u6d41\", \"Hugging Face\"]",
+      "recommended_action": "IGNORE",
+      "analyzer_version": "dsih-analyzer-v0.1.1",
+      "analyzed_at": "2026-09-28 12:01:47.943267"
+    },
+    {
+      "id": 13,
+      "item_id": 89,
+      "category": "AI",
+      "summary": "DeepMind 博客宣布为 Private AI Compute 引入私有的服务器端内存，面向个人 AI 场景。",
+      "why_it_matters": "条目事实：DeepMind 发布博客，介绍 Private AI Compute 的服务器端私有内存能力，用于个人 AI。项目相关性判断：这与 DSIH/Dream Stream 的 AI 视频生成、ComfyUI、角色一致性、动作控制等核心方向没有直接关系；若未来涉及 Agent 记忆或隐私部署，可能提供架构参考，但并不意味着 DSIH/Dream Stream 已采用或依赖该能力。",
+      "importance": 35,
+      "novelty": 35,
+      "credibility": 80,
+      "personal_relevance": 15,
+      "dreamstream_relevance": 15,
+      "actionability": 10,
+      "priority": 30,
+      "tags": "[\"AI\", \"\\u9690\\u79c1\\u8ba1\\u7b97\", \"\\u670d\\u52a1\\u5668\\u7aef\\u5185\\u5b58\", \"Private AI Compute\", \"DeepMind\"]",
+      "recommended_action": "IGNORE",
+      "analyzer_version": "dsih-analyzer-v0.1.1",
+      "analyzed_at": "2026-09-28 12:01:52.242371"
+    },
+    {
+      "id": 14,
+      "item_id": 130,
+      "category": "AI",
+      "summary": "该条目仅有标题“MiniMax M3.1 Flash上线”，链接为B站关键词搜索页（MiniMax M3.1 Flash上线），无正文、无作者、无发布时间，也未说明该版本属于哪类模型或具体能力。",
+      "why_it_matters": "条目事实仅限标题与搜索链接；MiniMax 属于项目关注方向之一，但此条未提供任何模型能力、视频生成或工作流集成信息。若后续核实确有新版本发布，或可影响 Dream Stream 的模型选型与工作流接入评估；目前仅凭标题无法确认关联，不表示 DSIH/Dream Stream 已使用或依赖该模型。",
+      "importance": 40,
+      "novelty": 45,
+      "credibility": 20,
+      "personal_relevance": 40,
+      "dreamstream_relevance": 42,
+      "actionability": 15,
+      "priority": 34,
+      "tags": "[\"MiniMax\", \"\\u6a21\\u578b\\u53d1\\u5e03\", \"\\u6807\\u9898\\u4e0d\\u5168\", \"\\u5f85\\u6838\\u5b9e\"]",
+      "recommended_action": "WATCH",
+      "analyzer_version": "dsih-analyzer-v0.1.1",
+      "analyzed_at": "2026-09-28 12:01:55.881374"
+    }
+  ],
+  "today_http": 200,
+  "today_stats": {
+    "raw_items": 138,
+    "analyzed": 13,
+    "relevant": 4,
+    "must_read": 2
+  },
+  "new_buckets": {
+    "92": "RELEVANT",
+    "130": "OTHER",
+    "89": "OTHER",
+    "93": "OTHER"
+  }
+}

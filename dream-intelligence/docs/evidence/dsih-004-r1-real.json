@@ -1,0 +1,152 @@
+{
+  "base_url": "https://api.deepseek.com",
+  "model": "deepseek-flash",
+  "before": {
+    "items": 81,
+    "analysis": 1,
+    "raw_sha256": "53a8515d93cb65fd60d520ce2b9fdd0577523dfc70b73f1a8f09fff1802ed391"
+  },
+  "selected": [
+    {
+      "item_id": 2,
+      "source": "Weibo",
+      "title": "中国队亚运王者夺金"
+    },
+    {
+      "item_id": 42,
+      "source": "Zhihu",
+      "title": "我国南疆塔克拉玛干沙漠发现两处大型地下水水源，这意味着什么？将对当地生态和经济带来哪些影响？"
+    },
+    {
+      "item_id": 79,
+      "source": "Bilibili Hot Search",
+      "title": "星铁真珠角色PV"
+    }
+  ],
+  "results": [
+    {
+      "item_id": 2,
+      "status": "OK",
+      "priority": 4,
+      "category": "OTHER",
+      "reason": ""
+    },
+    {
+      "item_id": 42,
+      "status": "OK",
+      "priority": 11,
+      "category": "OTHER",
+      "reason": ""
+    },
+    {
+      "item_id": 79,
+      "status": "OK",
+      "priority": 7,
+      "category": "OTHER",
+      "reason": ""
+    }
+  ],
+  "after": {
+    "items": 81,
+    "analysis": 4,
+    "raw_sha256": "53a8515d93cb65fd60d520ce2b9fdd0577523dfc70b73f1a8f09fff1802ed391"
+  },
+  "analyses": [
+    {
+      "id": 2,
+      "item_id": 2,
+      "category": "OTHER",
+      "summary": "仅有微博热搜标题，内容为空，指向中国队在亚运会王者荣耀项目夺金，无法核实具体细节。",
+      "why_it_matters": "属于体育/电竞热点，与 DSIH / Dream Stream 关注的 AI 视频生成、ComfyUI、Agent/Skill/MCP 等方向无直接关系。",
+      "importance": 5,
+      "novelty": 10,
+      "credibility": 15,
+      "personal_relevance": 0,
+      "dreamstream_relevance": 0,
+      "actionability": 0,
+      "priority": 4,
+      "tags": [
+        "微博热搜",
+        "亚运",
+        "电竞",
+        "王者荣耀",
+        "仅有标题"
+      ],
+      "recommended_action": "IGNORE",
+      "analyzer_version": "dsih-analyzer-v0.1",
+      "analyzed_at": "2026-09-28T09:55:56.300908"
+    },
+    {
+      "id": 3,
+      "item_id": 42,
+      "category": "OTHER",
+      "summary": "知乎上的一个提问，声称南疆塔克拉玛干沙漠发现两处大型地下水水源，并询问其对当地生态与经济的影响。目前仅有标题、无正文内容、无来源、无发布时间与作者信息。",
+      "why_it_matters": "该话题属于地理/资源与区域发展议题，与 DSIH / Dream Stream 的 AI 视频生成、工作流与智能体方向没有直接关联；且仅凭一个提问标题无法核实所谓『大型地下水水源』的真实性与规模。",
+      "importance": 12,
+      "novelty": 20,
+      "credibility": 25,
+      "personal_relevance": 5,
+      "dreamstream_relevance": 3,
+      "actionability": 5,
+      "priority": 11,
+      "tags": [
+        "中国",
+        "新疆",
+        "水资源",
+        "知乎提问",
+        "未核实"
+      ],
+      "recommended_action": "IGNORE",
+      "analyzer_version": "dsih-analyzer-v0.1",
+      "analyzed_at": "2026-09-28T09:55:59.189675"
+    },
+    {
+      "id": 4,
+      "item_id": 79,
+      "category": "OTHER",
+      "summary": "该条目仅为 B 站搜索页链接，关键词为“星铁真珠角色PV”，没有任何正文、作者或发布时间信息，无法确认具体视频内容。",
+      "why_it_matters": "这是《崩坏：星穹铁道》角色 PV 的搜索入口，属于游戏/二次元宣传内容，与 AI 视频生成技术或 Dream Stream 工作流无直接关联。",
+      "importance": 8,
+      "novelty": 3,
+      "credibility": 15,
+      "personal_relevance": 8,
+      "dreamstream_relevance": 5,
+      "actionability": 3,
+      "priority": 7,
+      "tags": [
+        "Bilibili",
+        "游戏PV",
+        "星穹铁道",
+        "无正文"
+      ],
+      "recommended_action": "IGNORE",
+      "analyzer_version": "dsih-analyzer-v0.1",
+      "analyzed_at": "2026-09-28T09:56:02.603630"
+    }
+  ],
+  "second_run": [
+    {
+      "item_id": 2,
+      "status": "SKIP",
+      "priority": null,
+      "category": null,
+      "reason": "already analyzed"
+    },
+    {
+      "item_id": 42,
+      "status": "SKIP",
+      "priority": null,
+      "category": null,
+      "reason": "already analyzed"
+    },
+    {
+      "item_id": 79,
+      "status": "SKIP",
+      "priority": null,
+      "category": null,
+      "reason": "already analyzed"
+    }
+  ],
+  "second_run_llm_calls": 0,
+  "total_analysis_calls": 3
+}

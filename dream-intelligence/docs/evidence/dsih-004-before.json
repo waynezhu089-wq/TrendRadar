@@ -1,0 +1,15 @@
+{
+  "items": 81,
+  "analysis": 1,
+  "raw_sha256": "f1934489843222f14c1123844e876fe05d89c65e16d0fe27ef64237742ccef1c",
+  "files": {
+    "backend/app/api/v1/today.py": "0def2891c06e3d3f27a3c9ecf333905f347f1ecaae94551a6db1f4675bb19e01",
+    "backend/app/connectors/newsnow.py": "917672671d72b7c58c12254d4b8f992204f9a44bdb8eabffe76bc0cc9c74b82a",
+    "frontend\\src\\App.tsx": "baf218c3d6847bc85636bbef9e2ada37ec15ab39f0168ef84b5bcd50e1893828",
+    "frontend\\src\\main.tsx": "6bc342e159e8a73fe979841df1720abe6c6453510945d2802274cef96a1d0758",
+    "frontend\\src\\style.css": "4feb49ec5db8f94e329febeef50a09c0c3bb4d75361472e4971d8908fd6ffe24",
+    "frontend\\src\\api\\intelligence.ts": "3e5a326c5ce5eb773295b6098610ea394050ed7f13149597177109cc10d120e0",
+    "frontend\\src\\components\\IntelligenceCard.tsx": "4e4ef16c07c2eaa1c2faed24a39abdc6a61d82119f73945412c1edc4ebf280e8",
+    "frontend\\src\\pages\\Today.tsx": "f23303e827f4fe13e9cef7046874f0c94a087ed5e032244af4e942b5206f9e56"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "sources": {
+    "rows": 9,
+    "sha256": "35e546f4927906e5caede524c895ef5376a00ff9970b61474794ea35f01c84ec"
+  },
+  "items": {
+    "rows": 164,
+    "sha256": "0abc35744d7775f0f444fef1328c1480f92fa95ef80cd362d43865d390c08805"
+  },
+  "analysis": {
+    "rows": 16,
+    "sha256": "f5d4995bef2296419719c9d18a5639ec163a99ac407c752cb06fcff4d8e9a7be"
+  },
+  "feedback_table_existed": false
+}
