@@ -204,12 +204,18 @@ class DailyTests(unittest.TestCase):
 
     def test_pending_provider_failure_stops_before_daily_summary(self):
         from app.llm.base import LLMError
+        # Keep the API's seven-day candidate window aligned with the fixed fixtures.
+        fixed_now = self.now
+        class FixedClock(datetime):
+            @classmethod
+            def now(cls, tz=None):
+                return fixed_now.astimezone(tz) if tz else fixed_now.replace(tzinfo=None)
         self.item('AI raw 1',datetime(2026,10,23,1),False)
         self.item('AI raw 2',datetime(2026,10,23,1),False)
         self.db.commit()
         fake=Mock();fake.analyze.side_effect=LLMError('Provider HTTP 401')
         app.dependency_overrides[get_db]=lambda:self.db
-        with patch.object(daily,'OpenAICompatibleClient',return_value=fake), patch.object(daily.LLMSettings,'from_env',return_value=daily.LLMSettings('https://example.com/v1','test-only','test-model')), patch.object(daily,'analyze_daily') as summary:
+        with patch.object(daily,'datetime',FixedClock), patch.object(daily,'OpenAICompatibleClient',return_value=fake), patch.object(daily.LLMSettings,'from_env',return_value=daily.LLMSettings('https://example.com/v1','test-only','test-model')), patch.object(daily,'analyze_daily') as summary:
             with TestClient(app) as client:
                 result=client.post('/api/v1/daily-brief/analyze?include_pending=true')
                 self.assertEqual(result.status_code,200,result.text)
