@@ -12,7 +12,8 @@ from pydantic import ValidationError
 from sqlalchemy import select
 
 from app.db.database import SessionLocal
-from app.db.models import Item, ResearchPlan, ResearchRun, ResearchRunItem, Source
+from app.db.models import Item, ResearchPlan, ResearchRun, ResearchRunItem, Source, ResearchSourceReport
+from .source_connections import collect_plan_sources, snapshots_from_reports
 from app.llm.openai_compatible import ConfigurationError, LLMSettings, OpenAICompatibleClient
 from app.schemas.research import ResearchSummary
 from .websites import WebsiteCollector
@@ -77,7 +78,7 @@ def item_identity(url: str) -> str:
 
 
 def summarize_items(items, topics: list[str], purpose: str, client=None,
-                    evidence_scope: str | None = None) -> ResearchSummary:
+                    evidence_scope: str | None = None, source_reports=None) -> ResearchSummary:
     if client is None:
         settings = LLMSettings.from_env()
         # Regional synthesis is longer than the global single-item analyzer.
@@ -90,10 +91,19 @@ def summarize_items(items, topics: list[str], purpose: str, client=None,
                  "content": item.content[:1200],
                  "published_at": item.published_at.isoformat() if item.published_at else None}
                 for item in items]
+    snapshots = snapshots_from_reports(source_reports or [])
+    for entry in evidence:
+        if entry['item_id'] in snapshots:
+            snapshot = snapshots[entry['item_id']]
+            entry.update({key:snapshot[key] for key in ('title','url','content','published_at')})
+            entry['source_observation'] = {key:snapshot[key] for key in
+                ('stars','updated_at','observed_at','rank','sort') if key in snapshot}
     request = {"purpose": purpose, "topics": topics, "item_count": len(evidence),
                "items": evidence}
     if evidence_scope:
         request["evidence_scope"] = evidence_scope
+    if source_reports:
+        request['configured_source_scope'] = '检索范围由实际 query 决定，排名只针对该检索式；star 是 observed_at 的快照，不代表项目质量。created_at 是仓库建立时间，不是新版本发布时间。'
     messages = [{"role": "system", "content": SUMMARY_SYSTEM},
                 {"role": "user", "content": json.dumps(request, ensure_ascii=False)}]
     for attempt in range(2):
@@ -124,7 +134,7 @@ def summarize_items(items, topics: list[str], purpose: str, client=None,
 
 def run_research_plan(plan_id: int, sessions=SessionLocal, collector=None, client=None,
                       zhihu_collector=None, bilibili_collector=None, weibo_collector=None,
-                      douban_collector=None) -> int:
+                      douban_collector=None, configured_collector_factory=None) -> int:
     collector = collector or WebsiteCollector()
     with sessions() as session:
         plan = session.get(ResearchPlan, plan_id)
@@ -148,6 +158,9 @@ def run_research_plan(plan_id: int, sessions=SessionLocal, collector=None, clien
     received = matched = inserted = 0
     errors: list[dict] = []
     try:
+        received, matched, inserted, source_errors, source_reports = collect_plan_sources(
+            plan_id,run_id,topics,sessions,configured_collector_factory)
+        errors.extend(source_errors)
         for site_url in websites:
             try:
                 zhihu_site = is_zhihu_search_site(site_url)
@@ -230,7 +243,7 @@ def run_research_plan(plan_id: int, sessions=SessionLocal, collector=None, clien
         if items:
             try:
                 summary = summarize_items(items, topics, purpose, client,
-                    evidence_scope=evidence_scope_for(websites))
+                    evidence_scope=evidence_scope_for(websites), source_reports=source_reports)
             except Exception as error:
                 # Provider output and exception messages are untrusted; keep the collected items.
                 summary = None
@@ -271,8 +284,10 @@ def reanalyze_research_run(plan_id: int, run_id: int, sessions=SessionLocal, cli
         if not items:
             raise ValueError("No saved evidence")
         topics, purpose, websites = list(plan.topics), plan.purpose, list(plan.websites)
+        report = session.get(ResearchSourceReport,run_id)
+        source_reports = report.reports if report else []
     summary = summarize_items(items, topics, purpose, client,
-        evidence_scope=evidence_scope_for(websites))
+        evidence_scope=evidence_scope_for(websites), source_reports=source_reports)
     with sessions() as session, session.begin():
         run = session.get(ResearchRun, run_id)
         run.summary = {**summary.model_dump(), '_analyzed_at': datetime.now(timezone.utc).isoformat()}

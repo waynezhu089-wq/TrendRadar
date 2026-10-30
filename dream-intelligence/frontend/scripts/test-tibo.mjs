@@ -62,6 +62,7 @@ test('settings deep link opens the automatic subscription tab',()=>{
       './Research':{Research:()=>React.createElement('p',{},'Topic panel')},
       './Watchlist':{Watchlist:()=>React.createElement('p',{},'Watchlist panel')},
       './SubscriptionSettings':{SubscriptionSettings:()=>React.createElement('p',{},'Subscription panel')},
+      './SourceConnections':{SourceConnections:()=>null},
     });
     const html=renderToStaticMarkup(React.createElement(Settings));
     assert.match(html,/aria-selected="true"[^>]*id="tab-subscriptions"/);

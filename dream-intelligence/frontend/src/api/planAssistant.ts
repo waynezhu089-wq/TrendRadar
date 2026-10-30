@@ -4,7 +4,7 @@ export type PlanFields = Omit<ResearchPlan, 'id' | 'created_at'>;
 export interface AssistantMessage { role: 'user' | 'assistant'; content: string }
 export interface PlanProposal {
   status: 'needs_details' | 'draft_ready'; message: string; questions: string[];
-  plan: PlanFields | null; sources: { url: string; name: string; scope: string }[];
+  plan: PlanFields | null; sources: { url: string; name: string; scope: string; connection_id?:number|null }[];
   deferred_sources?: { name: string; reason: string }[];
 }
 export interface CreatedPlan { plan: ResearchPlan; created: boolean }

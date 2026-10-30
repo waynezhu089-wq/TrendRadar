@@ -24,6 +24,12 @@ export function PlanPreview({ proposal }: { proposal: PlanProposal }) {
       return <div key={value}><strong>{source?.name ?? '手动调整的来源'}</strong>
         {url ? <a href={url.href} target="_blank" rel="noopener noreferrer">{url.hostname}</a> : <span>{value || '请填写公开网址'}</span>}
         <p>{source?.scope ?? '仅尝试公共 RSS 或静态页面；可继续与助手确认采集范围。'}</p></div>;
+    })}{plan.source_bindings?.map(binding=>{const source=proposal.sources.find(row=>row.connection_id===binding.connection_id);
+      const url=source?sourceLink(source.url):null;
+      return <div key={binding.connection_id}><strong>{source?.name??`来源接口 #${binding.connection_id}`}</strong>
+        {url&&<a href={url.href} target="_blank" rel="noopener noreferrer">{url.hostname}</a>}
+        <p>检索：{binding.query||plan.topics.join(' ')} · 排序：{binding.sort||'接口默认'} · 最多 {binding.limit} 条</p>
+        <p>{source?.scope??'使用已保存的来源接口配置。'}</p></div>;
     })}</div>
     {Boolean(proposal.deferred_sources?.length) && <div className="assistant-deferred"><strong>暂未加入</strong>
       {proposal.deferred_sources!.map(source => <p key={source.name}>{source.name}：{source.reason}</p>)}
@@ -114,6 +120,10 @@ export function PlanAssistant({ onCreated, onClose }: { onCreated: (result: Crea
           <label>名称<input value={draft.name} maxLength={100} onChange={event => setDraft({ ...draft, name: event.target.value })} /></label>
           <label>话题（每行一个，最多 8 个）<textarea rows={3} value={topicText} onChange={event => { setTopicText(event.target.value); setDraft({ ...draft, topics: splitLines(event.target.value) }); }} /></label>
           <label>网站（每行一个，最多 5 个）<textarea rows={2} value={websiteText} onChange={event => { setWebsiteText(event.target.value); setDraft({ ...draft, websites: splitLines(event.target.value) }); }} /></label>
+          {draft.source_bindings?.map((binding,index)=><div key={binding.connection_id}>
+            <label>接口 #{binding.connection_id} 检索式<input maxLength={256} value={binding.query} onChange={event=>setDraft({...draft,source_bindings:draft.source_bindings!.map((row,n)=>n===index?{...row,query:event.target.value}:row)})}/></label>
+            <label>最多条数<input type="number" min={1} max={12} value={binding.limit} onChange={event=>setDraft({...draft,source_bindings:draft.source_bindings!.map((row,n)=>n===index?{...row,limit:Number(event.target.value)}:row)})}/></label>
+          </div>)}
           <label>目的<textarea rows={3} value={draft.purpose} maxLength={1000} onChange={event => setDraft({ ...draft, purpose: event.target.value })} /></label>
         </fieldset>
         <p className="notice">手动填写其他网站时，只会尝试其公共 RSS 或静态页面；不会自动获得该站的登录采集能力。</p>

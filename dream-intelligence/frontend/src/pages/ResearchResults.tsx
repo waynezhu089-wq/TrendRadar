@@ -3,6 +3,17 @@ import type { ResearchRun } from '../api/research';
 type Item = ResearchRun['items'][number];
 const timestamp = (item: Item) => item.published_at ? Date.parse(item.published_at) : -Infinity;
 const newestFirst = (a: Item, b: Item) => timestamp(b) - timestamp(a) || b.id - a.id;
+export function SourceSearchEvidence({reports}:{reports:NonNullable<ResearchRun['source_reports']>}) {
+  return <>{reports.map(report=><section className="source-search-evidence" key={report.connection_id}>
+    <h3>{report.name} · 检索记录</h3><p>检索式：{report.query} · 排序：{report.sort||'来源默认'} · 请求最多 {report.limit} 条</p>
+    <p className="notice">{report.status==='COMPLETED'?`本次取得 ${report.received??0} 条，入选 ${report.selected??0} 条。`:'本次接口未完成，不能视为没有匹配结果。'}{report.incomplete?'来源标记结果不完整。':''}
+      {report.observed_at?` 快照时间：${new Date(report.observed_at).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})}（北京时间）。`:''}</p>
+    <ol>{report.results.map(row=>{let url:URL|null=null;try{url=new URL(row.url);if(!['https:','http:'].includes(url.protocol)||url.username||url.password)url=null;}catch{url=null;}
+      return <li key={row.item_id??row.url}>{url?<a href={url.href} target="_blank" rel="noopener noreferrer">{row.title}</a>:row.title}
+        {row.stars!==undefined&&<span> · ★ {row.stars.toLocaleString('zh-CN')}</span>}<p>{row.content}</p></li>;
+    })}</ol><p className="notice">{report.scope} 排名只针对本次检索式，star 是当次观测值，不能代表项目质量；仓库建立时间不等于版本发布时间。</p>
+  </section>)}</>;
+}
 function published(item: Item) {
   return item.published_at ? new Date(item.published_at).toLocaleString('zh-CN', {
     timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit',
@@ -21,6 +32,7 @@ export function ResearchResults({ run }: { run: ResearchRun }) {
     .sort((a, b) => newestFirst(a.items[0], b.items[0]));
   const remaining = items.filter(item => !assigned.has(item.id));
   return <div className="research-results">
+    <SourceSearchEvidence reports={run.source_reports??[]}/>
     {run.summary && <section className="research-overview" aria-label="本次总览">
       <span className="eyebrow">研究总览</span><h3>本次值得关注什么</h3>
       <p>{run.summary.overview}</p>

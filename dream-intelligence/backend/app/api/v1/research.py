@@ -4,9 +4,11 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from app.db.database import get_db
 from app.db.models import (Item, ResearchPlan, ResearchRun, ResearchRunItem, Source,
-                           ResearchImage, ResearchImageSummary)
+                           ResearchImage, ResearchImageSummary, ResearchPlanSource, ResearchSourceReport)
+from app.research.source_connections import validate_bindings, snapshots_from_reports
+from app.schemas.source_connections import SourceBindingsInput
 from app.research.collection import run_research_plan, reanalyze_research_run
-from datetime import timezone
+from datetime import datetime, timezone
 from threading import Lock
 from app.schemas.research import (ResearchItemOutput, ResearchPlanInput,
                                   ResearchPlanOutput, ResearchRunOutput, ImageSourcesInput)
@@ -65,7 +67,11 @@ def list_research_plans(db: Session = Depends(get_db)):
 
 @router.post("/research-plans", response_model=ResearchPlanOutput, status_code=201)
 def create_research_plan(payload: ResearchPlanInput, db: Session = Depends(get_db)):
-    plan = ResearchPlan(**payload.model_dump())
+    try:validate_bindings(db,payload.source_bindings)
+    except ValueError as error:raise HTTPException(422,str(error)) from None
+    values = payload.model_dump()
+    bindings = values.pop('source_bindings',[])
+    plan = ResearchPlan(**values,source_bindings=[ResearchPlanSource(**value) for value in bindings])
     db.add(plan)
     db.commit()
     db.refresh(plan)
@@ -80,6 +86,28 @@ def remove_research_plan(plan_id: int, db: Session = Depends(get_db)):
     plan.enabled = False  # Keep prior run provenance.
     db.commit()
     return Response(status_code=204)
+
+
+@router.post('/research-plans/{plan_id}/source-bindings', response_model=ResearchPlanOutput)
+def update_source_bindings(plan_id: int, body: SourceBindingsInput, db: Session = Depends(get_db)):
+    if not manual_run_lock.acquire(blocking=False):raise HTTPException(409,'SOURCE_CONFIG_BUSY')
+    try:
+        plan=db.get(ResearchPlan,plan_id)
+        if not plan or not plan.enabled or plan.collection_type!='research':raise HTTPException(404,'Research plan not found')
+        try:
+            ResearchPlanInput(name=plan.name,topics=plan.topics,websites=plan.websites,purpose=plan.purpose,source_bindings=body.bindings)
+            validate_bindings(db,body.bindings)
+        except ValueError:raise HTTPException(422,'SOURCE_BINDINGS_INVALID') from None
+        existing={row.connection_id:row for row in plan.source_bindings}
+        updated=[]
+        for binding in body.bindings:
+            row=existing.get(binding.connection_id) or ResearchPlanSource(connection_id=binding.connection_id)
+            row.query,row.sort,row.limit=binding.query,binding.sort,binding.limit
+            updated.append(row)
+        plan.source_bindings=updated
+        db.commit();db.refresh(plan)
+        return plan
+    finally:manual_run_lock.release()
 
 
 @router.post('/research-plans/{plan_id}/image-sources', response_model=ResearchPlanOutput)
@@ -111,11 +139,14 @@ def run_output(db: Session, run: ResearchRun) -> ResearchRunOutput:
     image_rows=saved_candidates(db,run.id)
     image_summary=db.get(ResearchImageSummary,run.id)
     video_search=db.get(VideoSearchReport,run.id)
+    source_report=db.get(ResearchSourceReport,run.id)
+    reports=source_report.reports if source_report else []
+    snapshots=snapshots_from_reports(reports)
     return ResearchRunOutput(id=run.id, plan_id=run.plan_id, status=run.status,
         started_at=run.started_at, finished_at=run.finished_at,
         received=run.received, matched=run.matched, inserted=run.inserted,
         errors=run.errors, summary=run.summary,visual_analysis=visual_output(db,run.id),
-        video_search=video_search.report if video_search else None,
+        video_search=video_search.report if video_search else None, source_reports=reports,
         image_summary=ImageSummaryOutput(overview=image_summary.overview,limitations=image_summary.limitations,
             kind='analysis' if run.status in ('COMPLETED','PARTIAL') else 'search') if image_summary else None,
         images=[ResearchImageOutput(id=image.id,provider=image.provider,title=image.title,source_url=image.source_url,
@@ -123,11 +154,17 @@ def run_output(db: Session, run: ResearchRun) -> ResearchRunOutput:
             license=image.license,license_url=image.license_url,attribution=image.attribution,
             width=image.width,height=image.height,favorite=image.favorite,downloaded=bool(image.local_path),
             recommended=link.recommended,reason=link.reason,usage_notes=link.usage_notes) for image,link in image_rows],
-        items=[ResearchItemOutput(id=item.id, title=item.title, url=item.url,
-                                  source=source.name,
-                                  published_at=(item.published_at.replace(tzinfo=timezone.utc)
-                                      if item.published_at and item.published_at.tzinfo is None
-                                      else item.published_at)) for item, source in rows])
+        items=[observed_item(item,source,snapshots) for item,source in rows])
+
+
+def observed_item(item,source,snapshots):
+    snapshot=snapshots.get(item.id)
+    if snapshot:
+        published=datetime.fromisoformat(snapshot['published_at']) if snapshot.get('published_at') else None
+        return ResearchItemOutput(id=item.id,title=snapshot['title'],url=snapshot['url'],
+                                  source=snapshot['source_name'],published_at=published)
+    published=item.published_at.replace(tzinfo=timezone.utc) if item.published_at and item.published_at.tzinfo is None else item.published_at
+    return ResearchItemOutput(id=item.id,title=item.title,url=item.url,source=source.name,published_at=published)
 
 
 @router.get('/research-plans/{plan_id}/favorite-images')

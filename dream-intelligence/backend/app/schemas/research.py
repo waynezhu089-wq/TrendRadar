@@ -1,7 +1,8 @@
 from datetime import datetime
 from typing import Literal
 
-from pydantic import BaseModel, Field, ValidationInfo, field_validator, model_validator
+from pydantic import BaseModel, Field, ValidationInfo, field_validator, model_validator, model_serializer
+from .source_connections import SourceBinding
 
 from app.research.websites import normalize_site_url
 from app.research.image_sources import image_source_ids
@@ -11,17 +12,32 @@ from .image_vision import VisualReportOutput
 class ResearchPlanInput(BaseModel):
     name: str = Field(min_length=1, max_length=100)
     topics: list[str] = Field(min_length=1, max_length=8)
-    websites: list[str] = Field(min_length=1, max_length=5)
+    websites: list[str] = Field(default_factory=list, max_length=5)
+    source_bindings: list[SourceBinding] = Field(default_factory=list, max_length=5)
     purpose: str = Field(min_length=10, max_length=1000)
     collection_type: Literal['research', 'images', 'videos'] = 'research'
 
     @model_validator(mode='after')
     def image_source(self):
+        if not self.websites and not self.source_bindings:
+            raise ValueError('Choose at least one website or configured source')
+        ids = [row.connection_id for row in self.source_bindings]
+        if len(set(ids)) != len(ids) or len(self.websites) + len(ids) > 5:
+            raise ValueError('Choose at most five distinct sources')
+        if self.collection_type != 'research' and self.source_bindings:
+            raise ValueError('Configured sources belong to information research')
         if self.collection_type == 'images':
             image_source_ids(self.websites)
         if self.collection_type == 'videos' and self.websites != ['https://www.youtube.com/']:
             raise ValueError('Video plans currently use https://www.youtube.com/ only')
         return self
+
+    @model_serializer(mode='wrap')
+    def legacy_shape(self, handler):
+        result = handler(self)
+        if not result.get('source_bindings'):
+            result.pop('source_bindings', None)
+        return result
 
     @field_validator("name", "purpose")
     @classmethod
@@ -115,6 +131,7 @@ class ResearchRunOutput(BaseModel):
     image_summary: 'ImageSummaryOutput | None' = None
     visual_analysis: VisualReportOutput | None = None
     video_search: dict | None = None
+    source_reports: list[dict] = Field(default_factory=list)
 
 
 class ResearchImageOutput(BaseModel):

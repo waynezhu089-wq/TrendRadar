@@ -1,7 +1,7 @@
 from datetime import date, datetime, timezone
 from decimal import Decimal
 from sqlalchemy import Boolean, CheckConstraint, Date, DateTime, ForeignKey, Integer, JSON, Numeric, String, Text, UniqueConstraint
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .database import Base
 
 def utcnow():
@@ -205,6 +205,30 @@ class ResearchPlan(Base):
     collection_type: Mapped[str] = mapped_column(String, default='research', server_default='research', nullable=False)
     enabled: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, nullable=False)
+    source_bindings: Mapped[list['ResearchPlanSource']] = relationship(lazy='selectin', cascade='all, delete-orphan')
+
+
+class SourceConnection(Base):
+    __tablename__ = 'source_connections'
+    id: Mapped[int] = mapped_column(primary_key=True)
+    definition: Mapped[dict] = mapped_column(JSON, nullable=False)
+
+
+class ResearchPlanSource(Base):
+    __tablename__ = 'research_plan_sources'
+    __table_args__ = (UniqueConstraint('plan_id', 'connection_id', name='uq_plan_source'),)
+    id: Mapped[int] = mapped_column(primary_key=True)
+    plan_id: Mapped[int] = mapped_column(ForeignKey('research_plans.id'), nullable=False)
+    connection_id: Mapped[int] = mapped_column(ForeignKey('source_connections.id'), nullable=False)
+    query: Mapped[str] = mapped_column(String(256), default='')
+    sort: Mapped[str] = mapped_column(String(40), default='')
+    limit: Mapped[int] = mapped_column(Integer, default=6)
+
+
+class ResearchSourceReport(Base):
+    __tablename__ = 'research_source_reports'
+    run_id: Mapped[int] = mapped_column(ForeignKey('research_runs.id'), primary_key=True)
+    reports: Mapped[list[dict]] = mapped_column(JSON, default=list)
 
 
 class ResearchRun(Base):

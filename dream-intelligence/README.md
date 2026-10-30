@@ -1,5 +1,7 @@
 # Dream Intelligence
 
+可配置来源接口：设置 → **来源接口**。通过 GitHub 项目搜索、JSON API 或公共 RSS 模板添加本机来源，关注方案和方案助手共享来源目录。支持检索词、排序、条数与字段映射，保存配置不会执行采集。详见 [来源接口配置与扩展说明](docs/SOURCE_CONNECTIONS.md)。
+
 AI 制作商单：主导航「AI 商单」(`/commissions`)，手动读取 AigcSDM、漫剧工场、塔猴及猪八戒公开需求，按视频广告、漫剧动画、图片视觉分区，可筛选来源，单列大陆归属待核实与过期记录。猪八戒目前限于公开详情与相似需求，未实现全站搜索。参见 [范围与限制](docs/AI_COMMISSIONS.md) 和 [来源扩展验证](docs/evidence/ai-commission-sources-validation-20261024.md)。
 
 An independent, lightweight future Intelligence Hub for Dream Stream.

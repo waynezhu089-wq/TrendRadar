@@ -6,6 +6,7 @@ import { PlanAssistant } from './PlanAssistant';
 import { ImageResults } from './ImageResults';
 import { TiboUpdates } from './TiboUpdates';
 import { VideoResults,VideoScheduleSettings } from './VideoResults';
+import {listSourceConnections,savePlanSourceBindings,type SourceBinding,type SourceConnection} from '../api/sourceConnections';
 
 function lines(value: string): string[] {
   return value.split(/[\n,，]+/).map(part => part.trim()).filter(Boolean);
@@ -16,6 +17,20 @@ function issueLabel(reason: string): string {
   if (reason === 'ZhihuAccessBlocked') return '知乎拒绝本次自动采集（HTTP 403）';
   if (reason === 'ZhihuBrowserUnavailable') return '专用浏览器不可用，请确认登录窗口已关闭';
   const bili: Record<string, string> = {
+    SOURCE_AUTH_MISSING:'来源接口缺少本机凭据变量，请配置并重新加载 API',
+    SOURCE_DISABLED:'该来源接口已停用，请调整方案来源',
+    SOURCE_ACCESS_DENIED:'来源接口拒绝访问，请检查凭据或接口权限；本次已停止该主机的请求',
+    SOURCE_RATE_LIMITED:'来源接口已限流，本次已停止该主机的请求',
+    SOURCE_ACCESS_STOPPED:'同一主机此前已拒绝访问或限流，本次未继续请求',
+    SOURCE_FORMAT_CHANGED:'来源返回结构与字段映射不符，请编辑接口配置',
+    SOURCE_FORMAT_OR_ADDRESS_INVALID:'来源地址或返回格式不可用，请检查接口配置',
+    SOURCE_NETWORK_FAILED:'无法连接来源接口，本次未取得结果',
+    SOURCE_TIMEOUT:'来源接口超时，本次已停止请求',
+    SOURCE_REDIRECT_REJECTED:'来源发生重定向，请核查实际接口地址后重新配置',
+    SOURCE_HTTP_FAILED:'来源接口返回失败，本次未取得结果',
+    SOURCE_RESPONSE_TOO_LARGE:'来源返回超过读取上限，请减少返回字段或条数',
+    SOURCE_QUERY_TOO_LONG:'合并检索词过长，请为接口填写一个不超过 256 字的检索式',
+    SOURCE_COLLECTION_FAILED:'来源采集未完成，已有结果保留',
     ImageSourceUnavailable: '图片检索来源暂时不可用或已限流，请稍后再试',
     IMAGE_SOURCE_TIMEOUT: '图片来源响应超时，本次已停止请求；这不是没有相关图片，请稍后重试',
     IMAGE_SOURCE_RATE_LIMITED: '图片来源暂时限流，本次已停止请求，请稍后再试',
@@ -58,6 +73,31 @@ const imageSources=[
   {url:'https://film-grab.com/',name:'FilmGrab · 电影画面',scope:'按片名或主创寻找画面参考，保留预览与原链接。'},
   {url:'https://openverse.org/',name:'Openverse · 开放许可图片',scope:'寻找场景、物件等图片，保留作者和许可信息。'},
 ];
+export function ConfiguredSourcePicker({connections,bindings,onChange}:{connections:SourceConnection[];bindings:SourceBinding[];onChange:(rows:SourceBinding[])=>void}) {
+  return <fieldset className="configured-source-picker"><legend>已配置的来源接口</legend>
+    {!connections.length&&<p className="notice">还没有来源接口。<a href="/settings?tab=sources">添加 GitHub 或其他接口 →</a></p>}
+    {connections.map(source=>{const binding=bindings.find(row=>row.connection_id===source.id);
+      return <div className="configured-source-choice" key={source.id}><label className="source-check"><input type="checkbox" checked={Boolean(binding)}
+        disabled={!binding&&!source.ready} onChange={event=>onChange(event.target.checked?[...bindings,{connection_id:source.id,query:'',sort:source.default_sort,limit:Math.min(6,source.max_results)}]:bindings.filter(row=>row.connection_id!==source.id))}/>
+        {source.name}{!source.enabled?'（已停用）':!source.ready?'（缺少凭据）':''}</label>
+        {binding&&<div className="source-binding-options"><label>检索式（留空使用关注话题）<input maxLength={256} value={binding.query}
+          onChange={event=>onChange(bindings.map(row=>row===binding?{...row,query:event.target.value}:row))}/></label>
+          <label>排序<select value={binding.sort} onChange={event=>onChange(bindings.map(row=>row===binding?{...row,sort:event.target.value}:row))}>
+            <option value="">接口默认</option>{source.sort_values.map(value=><option key={value} value={value}>{value==='stars'?'Star 数从高到低':value==='updated'?'最近更新':value}</option>)}</select></label>
+          <label>最多条数<input type="number" min={1} max={source.max_results} required value={binding.limit}
+            onChange={event=>onChange(bindings.map(row=>row===binding?{...row,limit:Number(event.target.value)}:row))}/></label></div>}
+      </div>;
+    })}<p className="notice">接口与下方网站合计最多 5 个。保存不会运行采集。</p>
+  </fieldset>;
+}
+
+function PlanSourceEditor({plan,connections,onSaved}:{plan:ResearchPlan;connections:SourceConnection[];onSaved:(plan:ResearchPlan)=>void}) {
+  const [bindings,setBindings]=useState(plan.source_bindings??[]),[busy,setBusy]=useState(false),[error,setError]=useState('');
+  return <details className="source-binding-editor"><summary>调整来源接口</summary><ConfiguredSourcePicker connections={connections} bindings={bindings} onChange={setBindings}/>
+    <button type="button" disabled={busy} onClick={()=>{setBusy(true);setError('');void savePlanSourceBindings(plan.id,bindings).then(onSaved)
+      .catch(reason=>setError(reason instanceof Error?reason.message:'未保存。')).finally(()=>setBusy(false));}}>保存来源设置</button>
+    <p className="notice">下次手动运行时生效，历史检索记录保留。</p>{error&&<p role="alert" className="feedback-error">{error}</p>}</details>;
+}
 export function ImageSourcePicker({selected,onChange,disabled=false}:{selected:string[];
   onChange:(values:string[])=>void;disabled?:boolean}) {
   return <fieldset className="image-source-picker"><legend>参考来源（至少一个）</legend>
@@ -95,6 +135,8 @@ export function Research({ settings = false }: { settings?: boolean }) {
   const [topics, setTopics] = useState('');
   const [websites, setWebsites] = useState('');
   const [purpose, setPurpose] = useState('');
+  const [connections,setConnections]=useState<SourceConnection[]>([]);
+  const [sourceBindings,setSourceBindings]=useState<SourceBinding[]>([]);
   const [collectionType, setCollectionType] = useState<'research' | 'images' | 'videos'>('research');
   const [selectedImageSources,setSelectedImageSources]=useState(imageSources.map(source=>source.url));
   const [busy, setBusy] = useState<number | 'create' | null>(null);
@@ -107,6 +149,7 @@ export function Research({ settings = false }: { settings?: boolean }) {
 
   useEffect(() => {
     const controller = new AbortController();
+    listSourceConnections(controller.signal).then(setConnections).catch(()=>{if(!controller.signal.aborted)setError('来源接口未能加载，请检查 API。');});
     listResearchPlans(controller.signal).then(async rows => {
       setPlans(rows);
       const requestedId = Number(new URLSearchParams(window.location.search).get('plan'));
@@ -126,14 +169,17 @@ export function Research({ settings = false }: { settings?: boolean }) {
     if(collectionType==='images' && siteList.length===0){setError('请至少选择一个参考来源。');return;}
     if (topicList.length > 8) { setError(`关注话题最多 8 个，当前填写了 ${topicList.length} 个。`); return; }
     if (siteList.length > 5) { setError(`目标网站最多 5 个，当前填写了 ${siteList.length} 个。`); return; }
+    if(collectionType==='research'&&siteList.length+sourceBindings.length>5){setError('来源接口与目标网站合计最多 5 个。');return;}
     setBusy('create');
     try {
       const created = await createResearchPlan({ name, topics: topicList,
-        websites: siteList, purpose, collection_type: collectionType });
+        websites: siteList, purpose, collection_type: collectionType,
+        ...(collectionType==='research'&&sourceBindings.length?{source_bindings:sourceBindings}:{}) });
       setPlans(current => [created, ...current]);
       setSelectedId(created.id);
       setShowAssistant(false);
       setName(''); setTopics(''); setWebsites(''); setPurpose(''); setCollectionType('research');
+      setSourceBindings([]);
     } catch (reason) { setError(reason instanceof Error ? reason.message : '方案保存失败，请重试。'); }
     finally { setBusy(null); }
   }
@@ -200,7 +246,8 @@ export function Research({ settings = false }: { settings?: boolean }) {
           <button type="button" key={label} onClick={()=>{if(!lines(topics).includes(query))setTopics(current=>current?`${current}\n${query}`:query);}}>{label}</button>)}</div>
         <p className="notice">英文关键词有助于寻找海外内容；结果会整理成中文。保存链接和封面，不自动下载视频。</p></div>:
         collectionType === 'images' ? <ImageSourcePicker selected={selectedImageSources} onChange={setSelectedImageSources}/>
-        : <label>目标网站网址（每行一个，最多 5 个）<textarea value={websites} onChange={event => setWebsites(event.target.value)} required rows={3} placeholder={'www.bilibili.com\nhttps://example.com/feed.xml'} /><span className="notice">直接填写公开域名也可以，保存时会补全 https://。</span></label>}
+        : <><ConfiguredSourcePicker connections={connections} bindings={sourceBindings} onChange={setSourceBindings}/>
+          <label>目标网站网址（已选接口时可留空）<textarea value={websites} onChange={event => setWebsites(event.target.value)} required={!sourceBindings.length} rows={3} placeholder={'www.bilibili.com\nhttps://example.com/feed.xml'} /><span className="notice">直接填写公开域名也可以，保存时会补全 https://。</span></label></>}
       {lines(websites).some(value => /^(?:https?:\/\/)?www\.bilibili\.com(?:\/|$)/i.test(value)) &&
         <p className="notice">B 站方案保存后可点击“现在运行”，每个话题最多读取 3 条视频的标题与简介，可能需要几分钟。需先在本机专用浏览器登录。</p>}
       <label>分析目的<textarea value={purpose} onChange={event => setPurpose(event.target.value)} required minLength={10} maxLength={1000} rows={3} placeholder="例如：跟踪 AI 视频工具，为 Dream Stream 选型提供线索" /></label>
@@ -222,10 +269,12 @@ export function Research({ settings = false }: { settings?: boolean }) {
         {plan.collection_type==='videos'&&<p className="eyebrow">YouTube 视频灵感 · 按题材收集、预览与收藏</p>}
         <p><b>话题：</b>{plan.topics.join('、')}</p>
         <p><b>目的：</b>{plan.purpose}</p>
+        {plan.source_bindings?.map(binding=><p key={binding.connection_id}><b>来源接口：</b>{connections.find(row=>row.id===binding.connection_id)?.name??`#${binding.connection_id}`} · {binding.query||plan.topics.join(' ')} · {binding.sort||'默认排序'} · 最多 {binding.limit} 条</p>)}
         <p className="research-sites"><b>网站：</b>{plan.websites.map((url, index) =>
           <span key={url}>{index > 0 ? ' · ' : ''}<a href={url} target="_blank" rel="noopener noreferrer">{new URL(url).hostname}</a></span>)}</p>
         {plan.collection_type==='images' && <ImageSourceEditor plan={plan} onSaved={saved=>setPlans(current=>current.map(row=>row.id===saved.id?saved:row))}/>}
         {plan.collection_type==='videos'&&<VideoScheduleSettings key={plan.id} planId={plan.id}/>}
+        {settings&&(!plan.collection_type||plan.collection_type==='research')&&<PlanSourceEditor key={plan.id} plan={plan} connections={connections} onSaved={saved=>setPlans(current=>current.map(row=>row.id===saved.id?saved:row))}/>}
         {plan.websites.some(url => ['weibo.com', 'www.weibo.com', 's.weibo.com'].includes(new URL(url).hostname)) &&
           <p className="notice">微博首页、热榜或登录跳转入口会读取 NewsNow 公共热榜，由 agent 按话题和目的筛选最多 12 条。依据仅为标题和链接，未阅读原帖；不会要求登录微博。</p>}
         {plan.websites.some(url => /^(?:www\.|movie\.|book\.)?douban\.com$/.test(new URL(url).hostname)) &&

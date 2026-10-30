@@ -1,3 +1,4 @@
+import type {SourceBinding} from './sourceConnections';
 export interface ResearchPlan {
   id: number;
   name: string;
@@ -6,6 +7,7 @@ export interface ResearchPlan {
   purpose: string;
   created_at: string;
   collection_type?: 'research' | 'images' | 'videos';
+  source_bindings?: SourceBinding[];
 }
 
 export interface ResearchImage {
@@ -53,6 +55,9 @@ export interface ResearchRun {
   visual_analysis?: VisualReport | null;
   video_search?: {queries:{topic:string;query:string;order:string;returned:number;status:string}[];
     candidate_count:number;candidate_channel_count:number;selected_count:number;selected_channel_count:number;max_per_channel:number}|null;
+  source_reports?: {connection_id:number;name:string;site_url:string;query:string;sort:string;limit:number;
+    observed_at?:string;status:string;received?:number;selected?:number;incomplete?:boolean;scope?:string;
+    results:{item_id:number;rank:number;title:string;url:string;content:string;published_at:string|null;stars?:number;updated_at?:string}[]}[];
 }
 
 const base = 'http://127.0.0.1:8000/api/v1/research-plans';

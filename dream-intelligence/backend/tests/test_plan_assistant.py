@@ -44,7 +44,7 @@ class PlanAssistantTests(unittest.TestCase):
 
     def test_real_schema_draft_is_read_only_and_source_limits_are_server_owned(self):
         fake=Mock();fake.analyze.return_value=json.dumps(ready(),ensure_ascii=False)
-        with patch.object(api,'propose_plan',side_effect=lambda payload:propose_plan(payload,fake)):
+        with patch.object(api,'propose_plan',side_effect=lambda payload,**kwargs:propose_plan(payload,fake,**kwargs)):
             response=self.client.post('/api/v1/research-plan-assistant/draft',json=request().model_dump())
         self.assertEqual(response.status_code,200,response.text)
         self.assertEqual(response.json()['plan'],PLAN)

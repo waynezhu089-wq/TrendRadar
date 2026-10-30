@@ -58,6 +58,7 @@ class SourceNote(BaseModel):
     url: str
     name: str
     scope: str
+    connection_id: int | None = None
 
 
 class PlanAssistantOutput(PlanProposal):
